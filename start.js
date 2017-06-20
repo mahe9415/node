@@ -20,6 +20,7 @@ mongoose.connection.on('error', (err) => {
 // READY?! Let's go!
 
 require('./models/Store.js')
+require('./models/User.js')
 // Start our app!
 const app = require('./app');
 app.set('port', process.env.PORT || 7777);

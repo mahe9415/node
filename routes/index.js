@@ -1,15 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const StoreController=require('../controllers/storeController.js')
+const storeController=require('../controllers/storeController.js')
+const userController=require('../controllers/userController.js')
 const {catchErrors} =require('../handlers/errorHandlers.js')
 // Do work here
-router.get('/',StoreController.getStores)
-router.get('/stores',StoreController.getStores)
+router.get('/',storeController.getStores)
+router.get('/stores',storeController.getStores)
 
-router.get('/add',StoreController.addStore)
-router.post('/add',catchErrors(StoreController.createStore))
+router.get('/add',storeController.addStore)
+router.post('/add',storeController.upload,
+					catchErrors(storeController.resize),
+					catchErrors(storeController.createStore))
 
-router.get('/stores/:id/edit',catchErrors(StoreController.editStores))
-router.post('/add/:id/',catchErrors(StoreController.updateStores))
+router.post('/add/:id/',storeController.upload,
+					catchErrors(storeController.resize),
+					catchErrors(storeController.updateStores))
+
+router.get('/stores/:id/edit',catchErrors(storeController.editStores))
+
+router.get('/stores/:slug',catchErrors(storeController.getStore))
+
+router.get('/tags',storeController.getTags)
+router.get('/tags/:tag',storeController.getTags)
+
+
+router.get('/login',userController.loginForm)
+router.get('/register',userController.registerForm)
+
+
+router.post('/register',
+	userController.validateRegister,
+	userController.register)
+
 
 module.exports = router;

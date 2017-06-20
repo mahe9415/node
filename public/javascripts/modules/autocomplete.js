@@ -8,7 +8,10 @@ if(!input) return;
 		lngInput.value=place.geometry.location.lng();
 	});
 	input.on('keydown',(e)=>{
-		if(e.keycode===13)e.preventDefault();
+		console.log(e);
+		if(e.keycode===13){
+			e.preventDefault()
+		}
 	})
 }
 
